@@ -4,8 +4,8 @@ This project will give an example of a simple Hadoop project and will include in
 
 These are all the steps I took in discussion session to enter Great Lakes and make it run there:
 ```
-1. ssh login.itd.umich.edu
-2. ssh -l oignat cavium-thunderx.arc-ts.umich.edu
+1. ssh <uniqname>@login.itd.umich.edu
+2. ssh -l <uniqname> cavium-thunderx.arc-ts.umich.edu
 ---------------------------------------------------------------------------
 3. cd WordCount476 //enter directory
 4. hdfs dfs -put input/example.txt example.txt // copy file from local to HDFS home

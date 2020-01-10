@@ -71,40 +71,11 @@ public class WordCount {
             for (IntWritable val : values) {
                 sum += val.get();
             }
-
-            Map< String,Integer> hm =new HashMap< String,Integer>();
-            hm.put(key.toString(), sum);
-
-
-            Integer currentMostFreqCount = 0;
-            String currentMostFreqWord = "";
-
-            // Returns Set view
-            Set< Map.Entry< String,Integer> > entry = hm.entrySet();
-
-            for(Map.Entry< String,Integer> word: entry) {
-                int wordcount = word.getValue();
-                if (wordcount > currentMostFreqCount) {
-                    currentMostFreqWord = word.getKey();
-                    currentMostFreqCount = wordcount;
-                }
-            }
-
-
-//            // only the ones that appear an even number of times
-//            if (sum % 2 == 0) {
-//                result.set(sum);
-//                context.write(key, result);
-//            }
-
-//            result.set(sum);
-//            context.write(key, result);
-
-            result.set(currentMostFreqCount);
-            context.write(new Text(currentMostFreqWord), result);
-
+            result.set(sum);
+            context.write(key, result);
         }
     }
+
     private static String outputPath;
     private static String inputPath;
 
@@ -125,10 +96,10 @@ public class WordCount {
 
         Configuration conf = new Configuration();
         conf.set("mapred.textoutputformat.separator", ",");
-        conf.set("mapreduce.job.queuename", "eecs476w20");
+        conf.set("mapreduce.job.queuename", "eecs476");         // required for this to work on GreatLakes
+
 
         Job wordCountJob = Job.getInstance(conf, "wordCountJob");
-        // required for this to work on flux
         wordCountJob.setJarByClass(WordCount.class);
         wordCountJob.setNumReduceTasks(1);
 
